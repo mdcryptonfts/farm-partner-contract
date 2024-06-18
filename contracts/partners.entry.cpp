@@ -95,3 +95,10 @@ ACTION partners::setpaymethod(const extended_symbol& payment_method){
 	s.accepted_tokens.push_back( payment_method );
 	state_s.set(s, _self);
 }
+
+ACTION partners::withdraw(const name& farm_name)
+{
+	farm_struct farm = get_farm( farm_name );
+	require_auth( farm.creator );
+	action( active_perm(), WAXDAO_CONTRACT, "withdraw"_n, std::tuple{ farm_name } ).send();
+}

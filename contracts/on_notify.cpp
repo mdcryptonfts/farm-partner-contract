@@ -44,4 +44,15 @@ void partners::receive_token_transfer(name from, name to, eosio::asset quantity,
         return;
     }
 
+    if( memo_parts[1] == "withdraw" ){
+        check( from == WAXDAO_CONTRACT, "expected waxdao to be the sender" );
+        check( memo_parts.size() >= 4, "memo for withdraw operation is incomplete" );
+        const eosio::name farm_name = eosio::name( memo_parts[2] );
+
+        farm_struct farm = get_farm( farm_name );
+        transfer_tokens( farm.creator, quantity, tkcontract, memo );
+
+        return;
+    }    
+
 }
