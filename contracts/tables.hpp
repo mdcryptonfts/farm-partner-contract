@@ -1,7 +1,6 @@
 #pragma once
 
-struct[[eosio::table]] stat
-{
+struct[[eosio::table]] stat {
   eosio::asset supply;
   eosio::asset max_supply;
   eosio::name issuer;
@@ -10,8 +9,7 @@ struct[[eosio::table]] stat
 };
 typedef eosio::multi_index<"stat" _n, stat> stat_table;
 
-struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] farms
-{
+struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] farms {
   eosio::name farm_name;
   eosio::name creator;
 
@@ -19,8 +17,7 @@ struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] farms
 };
 using farms_table = eosio::multi_index<"farms" _n, farms>;
 
-struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] points
-{
+struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] points {
   eosio::name wallet;
   uint8_t points_balance;
 
@@ -28,8 +25,7 @@ struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] points
 };
 using points_table = eosio::multi_index<"points" _n, points>;
 
-struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] state
-{
+struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] state {
   vector<eosio::extended_symbol> accepted_tokens;
   uint64_t partner_fee_1e6;
 
