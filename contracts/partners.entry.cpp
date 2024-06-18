@@ -21,6 +21,23 @@ ACTION partners::createfarm(const name& creator, const name& farm_name, const ex
 	action( active_perm(), WAXDAO_CONTRACT, "createfarm"_n, std::tuple{ _self, farm_name, staking_token, vesting_time } ).send();
 }
 
+/**
+ * Allows farm creator to extend a reward period after the existing period has finished
+ * 
+ * @param farm_name - the name of the farm that the reward is linked to
+ * @param reward_id - the ID of the reward to extend
+ * @param start_now - `true` if the new period should start instantly. `false` if the creator wants to set a custom `start_time`
+ * @param start_time - epoch timestamp to start the new reward period. irrelevant if `true` is passed to `start_now`
+ * @param duration - seconds that the reward period will last. minimum 86400 (1 day), maximum 86400*30 (30 days)
+ */
+
+ACTION partners::extendreward(const name& farm_name, const uint64_t& reward_id, const bool& start_now, const uint64_t& start_time, const uint64_t& duration)
+{
+	farm_struct farm = get_farm( farm_name );
+	require_auth( farm.creator );
+	action( active_perm(), WAXDAO_CONTRACT, "extendreward"_n, std::tuple{ farm_name, reward_id, start_now, start_time, duration } ).send();
+}
+
 ACTION partners::init(){
 	require_auth( _self );
 	state s{};
