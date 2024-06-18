@@ -33,6 +33,8 @@ CONTRACT partners : public contract {
         {}
 
         // Main Actions
+        ACTION addreward(const name& farm_name, const bool& start_now, const uint64_t& start_time, const uint64_t& duration,
+            const extended_symbol& reward_token);
         ACTION createfarm(const name& creator, const name& farm_name, const extended_symbol& staking_token,
             const uint64_t& vesting_time);
         ACTION extendreward(const name& farm_name, const uint64_t& reward_id, const bool& start_now, const uint64_t& start_time, const uint64_t& duration);

@@ -5,6 +5,24 @@
 //contractName: partners
 
 /**
+ * Allows farm creator to add a new reward
+ * 
+ * @param farm_name - the name of the farm to add the reward to
+ * @param start_now - `true` if the new period should start instantly. `false` if the creator wants to set a custom `start_time`
+ * @param start_time - epoch timestamp to start the new reward period. irrelevant if `true` is passed to `start_now`
+ * @param duration - seconds that the reward period will last. minimum 86400 (1 day), maximum 86400*30 (30 days)
+ * @param reward_token - symbol and contract for the token that will be distributed as rewards
+ */
+
+ACTION partners::addreward(const name& farm_name, const bool& start_now, const uint64_t& start_time, const uint64_t& duration,
+	const extended_symbol& reward_token)
+{
+	farm_struct farm = get_farm( farm_name );
+	require_auth( farm.creator );
+	action( active_perm(), WAXDAO_CONTRACT, "addreward"_n, std::tuple{ farm_name, start_now, start_time, duration, reward_token } ).send();
+}
+
+/**
  * Allows `creator` to make a new farm, assuming they have enough points in the `points` table
  * 
  * @param creator - the wax address of the user creating the farm
