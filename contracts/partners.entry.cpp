@@ -56,6 +56,12 @@ ACTION partners::extendreward(const name& farm_name, const uint64_t& reward_id, 
 	action( active_perm(), WAXDAO_CONTRACT, "extendreward"_n, std::tuple{ farm_name, reward_id, start_now, start_time, duration } ).send();
 }
 
+/**
+ * Allows this contract to initialize the `state` singleton
+ * 
+ * This action must be called before any farms can be created
+ */
+
 ACTION partners::init(){
 	require_auth( _self );
 	state s{};
@@ -65,6 +71,12 @@ ACTION partners::init(){
 	s.fee_wallet = _self;
 	state_s.set(s, _self);
 }
+
+/**
+ * Allows this contract to remove a payment method from the `state` singleton
+ * 
+ * @param payment_method - the symbol and contract of the token to remove
+ */
 
 ACTION partners::rempaymethod(const extended_symbol& payment_method){
 	require_auth( _self );
@@ -78,6 +90,14 @@ ACTION partners::rempaymethod(const extended_symbol& payment_method){
 	state_s.set(s, _self);
 }
 
+/**
+ * Allows this contract to change the percentage fee to charge for farm creation
+ * 
+ * Scaled by 1e6. 1% = 1000000, 100% = 100000000 etc
+ * 
+ * @param partner_fee_1e6 - the 1e6 scaled integer to set the percentage fee to
+ */
+
 ACTION partners::setfee(const uint64_t& partner_fee_1e6){
 	require_auth( _self );
 	check( partner_fee_1e6 >= 0 && partner_fee_1e6 <= SCALE_FACTOR_1E8, "fee must be 0 to 100%" );
@@ -87,6 +107,12 @@ ACTION partners::setfee(const uint64_t& partner_fee_1e6){
 	s.partner_fee_1e6 = partner_fee_1e6;
 	state_s.set(s, _self);
 }
+
+/**
+ * Allows this contract to change the wallet that collected fees are sent to
+ * 
+ * @param fee_wallet - the wax address to send farm creation fees to
+ */
 
 ACTION partners::setfeewallet(const name& fee_wallet){
 	require_auth( _self );
@@ -113,6 +139,10 @@ ACTION partners::setpaymethod(const extended_symbol& payment_method){
 	s.accepted_tokens.push_back( payment_method );
 	state_s.set(s, _self);
 }
+
+/**
+ * Changes the state of `redirect_fees` to the opposite of its current state
+ */
 
 ACTION partners::tgglredirect(){
 	require_auth( _self );
