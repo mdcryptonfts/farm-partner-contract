@@ -140,6 +140,20 @@ ACTION partners::setpaymethod(const extended_symbol& payment_method){
 	state_s.set(s, _self);
 }
 
+/** 
+ * Allows the farm creator to set the `vesting_time` for their farm
+ * 
+ * @param farm_name - the name of the farm to set the `vesting_time` for
+ * @param vesting_time - the seconds that users need to lock staked tokens for
+ */
+
+ACTION partners::setvesttime(const name& farm_name, const uint64_t& vesting_time)
+{
+	farm_struct farm = get_farm( farm_name );
+	require_auth( farm.creator );
+	action( active_perm(), WAXDAO_CONTRACT, "setvesttime"_n, std::tuple{ farm_name, vesting_time } ).send();
+}
+
 /**
  * Changes the state of `redirect_fees` to the opposite of its current state
  */
