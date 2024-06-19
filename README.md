@@ -62,6 +62,8 @@ Once your contract is configured with the settings you prefer, users can pay for
 
 When your contract receives the tokens, it will calculate the amount to send to WaxDAO, and automatically make the transfer, leaving the remainder (if there is any) for you as profit.
 
+If your `state` singleton has `redirect_fees` set to `true`, a transfer will also be made to your `fee_wallet`, redirecting any profit that was made.
+
 7. `createfarm` action
 
 After a user has paid for their farm, they will be credited with 1 "farm point" which is stored in the `points` table on your contract.
