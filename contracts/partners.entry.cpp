@@ -61,6 +61,8 @@ ACTION partners::init(){
 	state s{};
 	s.accepted_tokens = { {WAX_SYMBOL, WAX_CONTRACT} };
 	s.partner_fee_1e6 = 10000000;   // 10%
+	s.redirect_fees = false;
+	s.fee_wallet = _self;
 	state_s.set(s, _self);
 }
 
@@ -86,6 +88,12 @@ ACTION partners::setfee(const uint64_t& partner_fee_1e6){
 	state_s.set(s, _self);
 }
 
+/** 
+ * Allows this contract to add a new payment method to accept for farm payments
+ * 
+ * @param payment_method - the symbol and contract of the token to accept
+ */
+
 ACTION partners::setpaymethod(const extended_symbol& payment_method){
 	require_auth( _self );
 	check( token_exists( payment_method ), "this token does not exist" );
@@ -95,6 +103,16 @@ ACTION partners::setpaymethod(const extended_symbol& payment_method){
 	s.accepted_tokens.push_back( payment_method );
 	state_s.set(s, _self);
 }
+
+/** 
+ * Allows the farm creator to withdraw unused rewards
+ * 
+ * The only situation where this is applicable is when 0 people were staking any tokens
+ * at the end of the reward period. Otherwise, reward rate gets recalculated when someone stakes,
+ * and the full reward pool is distributed by the last block of the reward period.
+ * 
+ * @param farm_name - the name of the farm to withdraw unused rewards from
+ */
 
 ACTION partners::withdraw(const name& farm_name)
 {

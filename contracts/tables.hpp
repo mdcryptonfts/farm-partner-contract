@@ -28,7 +28,10 @@ using points_table = eosio::multi_index<"points"_n, points>;
 struct[[ eosio::table, eosio::contract(CONTRACT_NAME) ]] state {
   vector<eosio::extended_symbol> accepted_tokens;
   uint64_t partner_fee_1e6;
+  bool redirect_fees;
+  eosio::name fee_wallet;
 
-  EOSLIB_SERIALIZE(state, (accepted_tokens)(partner_fee_1e6))
+  EOSLIB_SERIALIZE(state, (accepted_tokens)(partner_fee_1e6)
+                          (redirect_fees)(fee_wallet))
 };
 using state_singleton = eosio::singleton<"state"_n, state>;
