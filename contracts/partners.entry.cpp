@@ -134,6 +134,10 @@ ACTION partners::setpaymethod(const extended_symbol& payment_method){
 	require_auth( _self );
 	check( token_exists( payment_method ), "this token does not exist" );
 
+	auto payments_secondary = payments_t.get_index<"symcontract"_n>();
+	uint128_t sym_contract_key = mix64to128( payment_method.get_symbol().code().raw(), payment_method.get_contract().value );
+	auto pay_itr = payments_secondary.require_find( sym_contract_key, "waxdao does not support this payment method" );	
+
 	state s = state_s.get();
 	check( std::find( s.accepted_tokens.begin(), s.accepted_tokens.end(), payment_method ) == s.accepted_tokens.end(), "this action would result in no change" );
 	s.accepted_tokens.push_back( payment_method );
