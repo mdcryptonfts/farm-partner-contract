@@ -41,6 +41,7 @@ CONTRACT partners : public contract {
         ACTION init();
         ACTION rempaymethod(const extended_symbol& payment_method);
         ACTION setfee(const uint64_t& partner_fee_1e6);
+        ACTION setfeewallet(const name& fee_wallet);
         ACTION setpaymethod(const extended_symbol& payment_method);
         ACTION withdraw(const name& farm_name);
 

@@ -88,6 +88,16 @@ ACTION partners::setfee(const uint64_t& partner_fee_1e6){
 	state_s.set(s, _self);
 }
 
+ACTION partners::setfeewallet(const name& fee_wallet){
+	require_auth( _self );
+	check( is_account( fee_wallet ), "fee_wallet is not an account" );
+
+	state s = state_s.get();
+	check( fee_wallet != s.fee_wallet, "this action would result in no change" );
+	s.fee_wallet = fee_wallet;
+	state_s.set(s, _self);
+}
+
 /** 
  * Allows this contract to add a new payment method to accept for farm payments
  * 
