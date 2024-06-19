@@ -114,6 +114,14 @@ ACTION partners::setpaymethod(const extended_symbol& payment_method){
 	state_s.set(s, _self);
 }
 
+ACTION partners::tgglredirect(){
+	require_auth( _self );
+
+	state s = state_s.get();
+	s.redirect_fees = !s.redirect_fees;
+	state_s.set(s, _self);
+}
+
 /** 
  * Allows the farm creator to withdraw unused rewards
  * 
