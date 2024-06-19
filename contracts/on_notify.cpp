@@ -24,6 +24,13 @@ void partners::receive_token_transfer(name from, name to, eosio::asset quantity,
         asset expected_total = price_on_waxdao + asset( partner_fee, quantity.symbol );
         check( quantity >= expected_total, ( "expected to receive " + expected_total.to_string() ).c_str() );
 
+        if( s.redirect_fees && s.fee_wallet != _self ){
+            asset profit = quantity - price_on_waxdao;
+            if( profit.amount > 0 ){
+                transfer_tokens( s.fee_wallet, profit, tkcontract, std::string("farm creation fee") );
+            }   
+        }
+
         add_point( from );
         transfer_tokens( WAXDAO_CONTRACT, price_on_waxdao, tkcontract, std::string("farm payment") );
         return;
