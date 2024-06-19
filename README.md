@@ -48,7 +48,7 @@ The `setpaymethod` action takes an `extended_symbol`, which is formatted as show
 
 This allows you to adjust the percentage fee that you want to charge, in addition to the standard farm price. It is a `uint64_t`, and is scaled by 1e6.
 
-For example, if a farm costs 150 WAX after your partner discount, and you see the fee to 50%, users will send 225 WAX to your contract, netting you 75 WAX in profit.
+For example, if a farm costs 150 WAX after your partner discount, and you set the fee to 50%, users will send 225 WAX to your contract, netting you 75 WAX in profit.
 
 To format 50% as a 1e6 scaled integer, you would do it like this.
 
