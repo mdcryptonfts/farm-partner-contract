@@ -22,9 +22,19 @@ Once you have the contract deployed, here are the steps you need to take.
 
 This action will initialize the `state` singleton, which stores a list of tokens you are willing to accept for farm creation, and a percentage fee, which can be set between 0 and 100% on top of the standard farm price.
 
+The `state` singleton also stores your optional `fee_wallet`, and a `bool` for whether or not to redirect fees to this `fee_wallet`. By default, this `bool` is set to `false`, so you need to call the `tgglredirect` action and then the `setfeewallet` action if you want your fees sent to another wallet. Details for these actions are in the steps below.
+
 By default, the init action will set the tokens list to accept WAX only, and set the percentage fee at 10%. However, you can adjust these using contract actions which will be explained in the steps below.
 
-2. `setpaymethod` action
+2. *optional* `setfeewallet` action
+
+Allows you to change the wallet that any collected farm creation fees will be sent to.
+
+3. *optional* `tgglredirect` action
+
+By default, collected fees will not be sent to another wallet. They will remain in your contract. Calling this action will toggle the state of `redirect_fees` to the opposite of its current state. You can check the current state by looking at the `state` singleton on a block explorer. If `0` or `false`, you need to call this action to change it to `1` or `true`, if you want fees sent to the `fee_wallet`.
+
+4. `setpaymethod` action
 
 This allows you to add additional tokens as payment methods. Keep in mind that these tokens must be listed as an accepted token on the `tf.waxdao` contract if you plan on paying for farms with them.
 
@@ -34,7 +44,7 @@ The `setpaymethod` action takes an `extended_symbol`, which is formatted as show
 
 `{sym: "8,WAX", contract: "eosio.token"}`
 
-3. `setfee` action
+5. `setfee` action
 
 This allows you to adjust the percentage fee that you want to charge, in addition to the standard farm price. It is a `uint64_t`, and is scaled by 1e6.
 
@@ -44,15 +54,15 @@ To format 50% as a 1e6 scaled integer, you would do it like this.
 
 `partner_fee_1e6: 50000000`  (50 with 6 zeroes after)
 
-*Steps 4 and 5 should be packaged together into a single transaction*
+*Steps 6 and 7 should be packaged together into a single transaction*
 
-4. `farm payment` memo
+6. `farm payment` memo
 
 Once your contract is configured with the settings you prefer, users can pay for farms by sending an accepted token to your contract with the memo: `farm payment`
 
 When your contract receives the tokens, it will calculate the amount to send to WaxDAO, and automatically make the transfer, leaving the remainder (if there is any) for you as profit.
 
-5. `createfarm` action
+7. `createfarm` action
 
 After a user has paid for their farm, they will be credited with 1 "farm point" which is stored in the `points` table on your contract.
 
@@ -62,15 +72,15 @@ When this action is called, your contract will check to make sure they have a po
 
 The farm is now created, and the staking details are stored in the `tf.waxdao` contract. A reward pool (or up to 10 reward pools) still needs to be created.
 
-*Steps 6 and 7 should be combined into a single transaction. Ideally, you can actually bundle steps 4, 5, 6 and 7 into 1 transaction*
+*Steps 8 and 9 should be combined into a single transaction. Ideally, you can actually bundle steps 6, 7, 8 and 9 into 1 transaction*
 
-6. `addreward` action
+8. `addreward` action
 
 This is the action where a user will submit the details for the reward token and the length of the reward period. More information about the action params and behavior can be found in `tokenstaking.entry.cpp`
 
 This action will also create an inline action, which calls the `addreward` action on the `tf.waxdao` contract.
 
-7. `|rewards|<farm_name>|<reward_id>|` memo
+9. `|rewards|<farm_name>|<reward_id>|` memo
 
 Once the reward pool is created, the farm owner can deposit rewards. Since your contract is acting as a middleman, you are technically the farm creator.
 
