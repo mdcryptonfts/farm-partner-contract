@@ -1,0 +1,302 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.2",
+    "types": [],
+    "structs": [
+        {
+            "name": "addreward",
+            "base": "",
+            "fields": [
+                {
+                    "name": "farm_name",
+                    "type": "name"
+                },
+                {
+                    "name": "start_now",
+                    "type": "bool"
+                },
+                {
+                    "name": "start_time",
+                    "type": "uint64"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint64"
+                },
+                {
+                    "name": "reward_token",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "createfarm",
+            "base": "",
+            "fields": [
+                {
+                    "name": "creator",
+                    "type": "name"
+                },
+                {
+                    "name": "farm_name",
+                    "type": "name"
+                },
+                {
+                    "name": "staking_token",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "vesting_time",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "extended_symbol",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sym",
+                    "type": "symbol"
+                },
+                {
+                    "name": "contract",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "extendreward",
+            "base": "",
+            "fields": [
+                {
+                    "name": "farm_name",
+                    "type": "name"
+                },
+                {
+                    "name": "reward_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "start_now",
+                    "type": "bool"
+                },
+                {
+                    "name": "start_time",
+                    "type": "uint64"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "farms",
+            "base": "",
+            "fields": [
+                {
+                    "name": "farm_name",
+                    "type": "name"
+                },
+                {
+                    "name": "creator",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "init",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "points",
+            "base": "",
+            "fields": [
+                {
+                    "name": "wallet",
+                    "type": "name"
+                },
+                {
+                    "name": "points_balance",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "rempaymethod",
+            "base": "",
+            "fields": [
+                {
+                    "name": "payment_method",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "setfee",
+            "base": "",
+            "fields": [
+                {
+                    "name": "partner_fee_1e6",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "setfeewallet",
+            "base": "",
+            "fields": [
+                {
+                    "name": "fee_wallet",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "setpaymethod",
+            "base": "",
+            "fields": [
+                {
+                    "name": "payment_method",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "setvesttime",
+            "base": "",
+            "fields": [
+                {
+                    "name": "farm_name",
+                    "type": "name"
+                },
+                {
+                    "name": "vesting_time",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "state",
+            "base": "",
+            "fields": [
+                {
+                    "name": "accepted_tokens",
+                    "type": "extended_symbol[]"
+                },
+                {
+                    "name": "partner_fee_1e6",
+                    "type": "uint64"
+                },
+                {
+                    "name": "redirect_fees",
+                    "type": "bool"
+                },
+                {
+                    "name": "fee_wallet",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "tgglredirect",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "withdraw",
+            "base": "",
+            "fields": [
+                {
+                    "name": "farm_name",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "addreward",
+            "type": "addreward",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "createfarm",
+            "type": "createfarm",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "extendreward",
+            "type": "extendreward",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "init",
+            "type": "init",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rempaymethod",
+            "type": "rempaymethod",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setfee",
+            "type": "setfee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setfeewallet",
+            "type": "setfeewallet",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setpaymethod",
+            "type": "setpaymethod",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setvesttime",
+            "type": "setvesttime",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "tgglredirect",
+            "type": "tgglredirect",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdraw",
+            "type": "withdraw",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "farms",
+            "type": "farms",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "points",
+            "type": "points",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "state",
+            "type": "state",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": [],
+    "action_results": []
+}

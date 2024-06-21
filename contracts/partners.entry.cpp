@@ -36,6 +36,10 @@ ACTION partners::createfarm(const name& creator, const name& farm_name, const ex
 {
 	require_auth( creator );
 	remove_point( creator );
+	farms_t.emplace(creator, [&](auto &row){
+		row.farm_name = farm_name;
+		row.creator = creator;
+	});
 	action( active_perm(), WAXDAO_CONTRACT, "createfarm"_n, std::tuple{ _self, farm_name, staking_token, vesting_time } ).send();
 }
 
