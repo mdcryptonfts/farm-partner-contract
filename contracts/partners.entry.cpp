@@ -40,7 +40,7 @@ ACTION partners::createfarm(const name& creator, const name& farm_name, const ex
 		row.farm_name = farm_name;
 		row.creator = creator;
 	});
-	action( active_perm(), WAXDAO_CONTRACT, "createfarm"_n, std::tuple{ _self, farm_name, staking_token, vesting_time } ).send();
+	action( active_perm(), WAXDAO_CONTRACT, "createfarm"_n, std::tuple{ _self, farm_name, staking_token, vesting_time, creator } ).send();
 }
 
 /**
