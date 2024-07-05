@@ -10,7 +10,7 @@
  * @param farm_name - the name of the farm to add the reward to
  * @param start_now - `true` if the new period should start instantly. `false` if the creator wants to set a custom `start_time`
  * @param start_time - epoch timestamp to start the new reward period. irrelevant if `true` is passed to `start_now`
- * @param duration - seconds that the reward period will last. minimum 86400 (1 day), maximum 86400*30 (30 days)
+ * @param duration - seconds that the reward period will last. min and max can be found in global singleton on `tf.waxdao`
  * @param reward_token - symbol and contract for the token that will be distributed as rewards
  */
 
@@ -50,7 +50,7 @@ ACTION partners::createfarm(const name& creator, const name& farm_name, const ex
  * @param reward_id - the ID of the reward to extend
  * @param start_now - `true` if the new period should start instantly. `false` if the creator wants to set a custom `start_time`
  * @param start_time - epoch timestamp to start the new reward period. irrelevant if `true` is passed to `start_now`
- * @param duration - seconds that the reward period will last. minimum 86400 (1 day), maximum 86400*30 (30 days)
+ * @param duration - seconds that the reward period will last. min and max can be found in global singleton on `tf.waxdao`
  */
 
 ACTION partners::extendreward(const name& farm_name, const uint64_t& reward_id, const bool& start_now, const uint64_t& start_time, const uint64_t& duration)
