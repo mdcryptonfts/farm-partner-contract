@@ -102,6 +102,10 @@
                 {
                     "name": "creator",
                     "type": "name"
+                },
+                {
+                    "name": "status",
+                    "type": "uint8"
                 }
             ]
         },

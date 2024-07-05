@@ -68,7 +68,7 @@ If your `state` singleton has `redirect_fees` set to `true`, a transfer will als
 
 After a user has paid for their farm, they will be credited with 1 "farm point" which is stored in the `points` table on your contract.
 
-They can now call the `createfarm` action, where they will submit the details for the staking token (action details can be found in `tokenstaking.entry.cpp`)
+They can now call the `createfarm` action, where they will submit the details for the staking token (action details can be found in `partners.entry.cpp`)
 
 When this action is called, your contract will check to make sure they have a point. Then debit their point from them, and finally create an inline action which calls the `createfarm` action on the `tf.waxdao` contract.
 
@@ -78,7 +78,7 @@ The farm is now created, and the staking details are stored in the `tf.waxdao` c
 
 8. `addreward` action
 
-This is the action where a user will submit the details for the reward token and the length of the reward period. More information about the action params and behavior can be found in `tokenstaking.entry.cpp`
+This is the action where a user will submit the details for the reward token and the length of the reward period. More information about the action params and behavior can be found in `partners.entry.cpp`
 
 This action will also create an inline action, which calls the `addreward` action on the `tf.waxdao` contract.
 
